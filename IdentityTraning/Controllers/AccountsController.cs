@@ -56,8 +56,28 @@ namespace IdentityTraning.Controllers
 
             if (!identityResult.Succeeded) return GetErrorResult(identityResult);
 
-            Uri locationHeader = new Uri(Url.Link("GetUserById", new {id = applicationUser.Id}));
+            string code = await ApplicationUserManager.GenerateEmailConfirmationTokenAsync(applicationUser.Id);
+            Uri callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new {userId = applicationUser.Id, code = code}));
+            await ApplicationUserManager.SendEmailAsync(applicationUser.Id, "Confirm your account",
+                $"Please confirm your account by clicking <a href=\"{callbackUrl}\">here</a>");
+
+        Uri locationHeader = new Uri(Url.Link("GetUserById", new {id = applicationUser.Id}));
             return Created(locationHeader, ModelFactory.Create(applicationUser));
+        }
+
+        [HttpGet]
+        [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
+        public async Task<IHttpActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
+            {
+                ModelState.AddModelError("", "User Id and Code are required");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult identityResult = await ApplicationUserManager.ConfirmEmailAsync(userId, code);
+
+            return identityResult.Succeeded ? Ok() : GetErrorResult(identityResult);
         }
     }
 }
