@@ -12,9 +12,13 @@ namespace IdentityTraning.Controllers
     {
         private ModelFactory _modelFactory;
         private ApplicationUserManager _applicationUserManager;
+        private ApplicationRoleManager _applicationRoleManager;
 
         protected ApplicationUserManager ApplicationUserManager =>
             _applicationUserManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+        protected ApplicationRoleManager ApplicationRoleManager =>
+            _applicationRoleManager ?? Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
 
         protected ModelFactory ModelFactory =>
             _modelFactory ?? (_modelFactory = new ModelFactory(Request, ApplicationUserManager));

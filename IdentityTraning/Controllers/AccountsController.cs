@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -100,7 +101,7 @@ namespace IdentityTraning.Controllers
             return Ok();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("user/{id:guid}")]
         public async Task<IHttpActionResult> DeleteUser(string id)
@@ -112,6 +113,46 @@ namespace IdentityTraning.Controllers
             IdentityResult identityResult = await ApplicationUserManager.DeleteAsync(applicationUser);
 
             if (!identityResult.Succeeded) return GetErrorResult(identityResult);
+
+            return Ok();
+        }
+
+        [Authorize(Roles = "Admin")]
+        [Route("user/{id:guid}/roles")]
+        [HttpPut]
+        public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] string[] rolesToAssign)
+        {
+            ApplicationUser applicationUser = await ApplicationUserManager.FindByIdAsync(id);
+
+            if (applicationUser == null) return NotFound();
+
+            IList<string> currentRoles = await ApplicationUserManager.GetRolesAsync(applicationUser.Id);
+
+            string[] rolesNotExist = rolesToAssign.Except(ApplicationRoleManager.Roles.Select(s => s.Name)).ToArray();
+
+            if (rolesNotExist.Length > 0)
+            {
+                ModelState.AddModelError("",
+                    $"Roles '{string.Join(",", rolesNotExist)}' does not exists in the system");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult removedResult =
+                await ApplicationUserManager.RemoveFromRolesAsync(applicationUser.Id, currentRoles.ToArray());
+
+            if (!removedResult.Succeeded)
+            {
+                ModelState.AddModelError("", "Failed to remove user roles");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult addResult = await ApplicationUserManager.AddToRolesAsync(applicationUser.Id, rolesToAssign);
+
+            if (!addResult.Succeeded)
+            {
+                ModelState.AddModelError("", "Failed to add user roles");
+                return BadRequest(ModelState);
+            }
 
             return Ok();
         }

@@ -34,6 +34,7 @@ namespace IdentityTraning
         {
             appBuilder.CreatePerOwinContext(ApplicationContext.Create);
             appBuilder.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            appBuilder.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             OAuthAuthorizationServerOptions oAuthAuthorizationServerOptions = new OAuthAuthorizationServerOptions()
             {

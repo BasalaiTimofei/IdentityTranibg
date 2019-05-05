@@ -1,6 +1,8 @@
 ﻿using System.Net.Http;
 using System.Web.Http.Routing;
+using IdentityTraning.Models.Roles;
 using IdentityTraning.Services;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace IdentityTraning.Models
 {
@@ -32,6 +34,16 @@ namespace IdentityTraning.Models
                 PhoneNumber = applicationUser.PhoneNumber,
                 Roles = _applicationUserManager.GetRolesAsync(applicationUser.Id).Result,
                 Claims = _applicationUserManager.GetClaimsAsync(applicationUser.Id).Result
+            };
+        }
+
+        public RoleReturnModel Create(IdentityRole identityRole)
+        {
+            return new RoleReturnModel
+            {
+                Url = _urlHelper.Link("GetRoleById", new {id = identityRole.Id}),
+                Id = identityRole.Id,
+                Name = identityRole.Name
             };
         }
     }
