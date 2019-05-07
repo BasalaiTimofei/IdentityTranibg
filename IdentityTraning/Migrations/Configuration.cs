@@ -3,6 +3,7 @@ using IdentityTraning.Context;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using IdentityTraning.Models;
+using IdentityTraning.Models.DbModel;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 

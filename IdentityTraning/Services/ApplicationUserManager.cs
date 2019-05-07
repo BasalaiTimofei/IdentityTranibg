@@ -1,6 +1,7 @@
 ﻿using System;
 using IdentityTraning.Context;
 using IdentityTraning.Models;
+using IdentityTraning.Models.DbModel;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -45,9 +46,6 @@ namespace IdentityTraning.Services
                         TokenLifespan = TimeSpan.FromHours(6)
                     };
             }
-
-
-
 
             return applicationUserManager;
         }

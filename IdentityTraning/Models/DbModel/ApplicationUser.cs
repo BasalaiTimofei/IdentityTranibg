@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace IdentityTraning.Models
+namespace IdentityTraning.Models.DbModel
 {
     public class ApplicationUser : IdentityUser
     {

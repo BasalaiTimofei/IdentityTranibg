@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using IdentityTraning.Models;
+using IdentityTraning.Models.DbModel;
 using Microsoft.AspNet.Identity;
 
 namespace IdentityTraning.Controllers

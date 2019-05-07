@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace IdentityTraning.Models
+namespace IdentityTraning.Models.ViewModel
 {
     public class UserReturnModel
     {

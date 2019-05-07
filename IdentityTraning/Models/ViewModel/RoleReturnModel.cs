@@ -1,4 +1,4 @@
-﻿namespace IdentityTraning.Models.Roles
+﻿namespace IdentityTraning.Models.ViewModel
 {
     public class RoleReturnModel
     {
