@@ -4,39 +4,18 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using IdentityTraning.Context;
 using IdentityTraning.Interfaces;
-using IdentityTraning.Models;
 using IdentityTraning.Models.DbModel;
 
 namespace IdentityTraning.Repositories
 {
     public class CheckRepository : IRepository<Check>
     {
-        private bool _disposed;
         private readonly ApplicationContext _applicationContext;
 
         public CheckRepository(ApplicationContext applicationContext)
         {
             _applicationContext = applicationContext;
         }
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    _applicationContext.Dispose();
-                }
-            }
-            _disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
 
         public async Task<IList<Check>> GetAll()
         {
@@ -73,11 +52,6 @@ namespace IdentityTraning.Repositories
             var check = await _applicationContext.Checks.FindAsync(id);
             if (check == null) throw new NullReferenceException();
             _applicationContext.Checks.Remove(check);
-        }
-
-        public async Task Save()
-        {
-            await _applicationContext.SaveChangesAsync();
         }
     }
 }

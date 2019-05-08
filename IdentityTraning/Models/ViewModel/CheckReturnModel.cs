@@ -10,6 +10,7 @@ namespace IdentityTraning.Models.ViewModel
 
         //Id, Name and price
         public List<string[]> Products { get; set; }
+        public string FullPrice { get; set; }
         public ShortUserModel Customer { get; set; }
         public string Adress { get; set; }
         public DateTime PurchaseDate { get; set; }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IdentityTraning.Interfaces
 {
-    public interface IRepository<T> : IDisposable
+    public interface IRepository<T>
         where T : class
     {
         Task<IList<T>> GetAll();
@@ -12,6 +11,5 @@ namespace IdentityTraning.Interfaces
         void Create(T item);
         void Update(T item);
         Task Delete(string id);
-        Task Save();
     }
 }

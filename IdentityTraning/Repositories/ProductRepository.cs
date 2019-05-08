@@ -4,14 +4,12 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using IdentityTraning.Context;
 using IdentityTraning.Interfaces;
-using IdentityTraning.Models;
 using IdentityTraning.Models.DbModel;
 
 namespace IdentityTraning.Repositories
 {
     public class ProductRepository : IRepository<Product>
     {
-        private bool _disposed;
         private readonly ApplicationContext _applicationContext;
 
         public ProductRepository(ApplicationContext applicationContext)
@@ -55,29 +53,5 @@ namespace IdentityTraning.Repositories
             if (product == null) throw new NullReferenceException();
             _applicationContext.Products.Remove(product);
         }
-
-        public async Task Save()
-        {
-            await _applicationContext.SaveChangesAsync();
-        }
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    _applicationContext.Dispose();
-                }
-            }
-            _disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
     }
 }

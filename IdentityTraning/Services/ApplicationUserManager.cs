@@ -1,6 +1,5 @@
 ﻿using System;
 using IdentityTraning.Context;
-using IdentityTraning.Models;
 using IdentityTraning.Models.DbModel;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -24,14 +23,10 @@ namespace IdentityTraning.Services
             ApplicationUserManager applicationUserManager =
                 new ApplicationUserManager(new UserStore<ApplicationUser>(applicationContext))
                 {
-                    EmailService = new EmailService(),
+                    //EmailService = new EmailService(),
                     PasswordValidator = new PasswordValidator
                     {
-                        RequiredLength = 6,
-                        RequireNonLetterOrDigit = true,
-                        RequireDigit = false,
-                        RequireLowercase = true,
-                        RequireUppercase = true
+                        RequiredLength = 6
                     },
 
                 };

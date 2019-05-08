@@ -6,6 +6,7 @@ namespace IdentityTraning.Models.DbModel
     public class Check
     {
         public string Id { get; set; }
+
         public virtual List<Product> Products { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Shop Shop { get; set; }

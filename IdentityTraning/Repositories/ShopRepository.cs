@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using IdentityTraning.Context;
 using IdentityTraning.Interfaces;
-using IdentityTraning.Models;
 using IdentityTraning.Models.DbModel;
 
 namespace IdentityTraning.Repositories
@@ -54,31 +53,6 @@ namespace IdentityTraning.Repositories
             var shop = await _applicationContext.Shops.FindAsync(id);
             if (shop == null) throw new NullReferenceException();
             _applicationContext.Shops.Remove(shop);
-        }
-
-        public async Task Save()
-        {
-            await _applicationContext.SaveChangesAsync();
-        }
-
-        private bool _disposed;
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    _applicationContext.Dispose();
-                }
-            }
-            _disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }
