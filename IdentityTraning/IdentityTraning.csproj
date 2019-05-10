@@ -161,21 +161,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\ApplicationContext.cs" />
+    <Compile Include="Context\IdentityContext.cs" />
     <Compile Include="Context\Configuration.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Migrations\201903061104296_InitialCreate.cs" />
-    <Compile Include="Migrations\201903061104296_InitialCreate.Designer.cs">
-      <DependentUpon>201903061104296_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201905092011259_Step1.cs" />
+    <Compile Include="Migrations\201905092011259_Step1.Designer.cs">
+      <DependentUpon>201905092011259_Step1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905092048520_Step2.cs" />
+    <Compile Include="Migrations\201905092048520_Step2.Designer.cs">
+      <DependentUpon>201905092048520_Step2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905092103407_Step3.cs" />
+    <Compile Include="Migrations\201905092103407_Step3.Designer.cs">
+      <DependentUpon>201905092103407_Step3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905092147008_Step4.cs" />
+    <Compile Include="Migrations\201905092147008_Step4.Designer.cs">
+      <DependentUpon>201905092147008_Step4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbModel\ApplicationUser.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\DbModel\Check.cs" />
     <Compile Include="Models\DbModel\Customer.cs" />
+    <Compile Include="Models\DbModel\ShopProduct.cs" />
+    <Compile Include="Models\DbModel\User.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\DbModel\Position.cs" />
     <Compile Include="Models\DbModel\Product.cs" />
@@ -184,6 +199,7 @@
     <Compile Include="Models\ViewModel\CheckReturnModel.cs" />
     <Compile Include="Models\ViewModel\CustomerReturnModel.cs" />
     <Compile Include="Models\ViewModel\PositionReturnModel.cs" />
+    <Compile Include="Models\ViewModel\ProductInShopReturnModel.cs" />
     <Compile Include="Models\ViewModel\ProductReturnModel.cs" />
     <Compile Include="Models\ViewModel\RoleReturnModel.cs" />
     <Compile Include="Models\Roles\UserInRoleModel.cs" />
@@ -200,7 +216,10 @@
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\PositionRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\ShopProductRepository.cs" />
     <Compile Include="Repositories\ShopRepository.cs" />
+    <Compile Include="Repositories\UnitOfWork.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\WorkerRepository.cs" />
     <Compile Include="Services\ApplicationRoleManager.cs" />
     <Compile Include="Services\ApplicationUserManager.cs" />
@@ -217,11 +236,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903061104296_InitialCreate.resx">
-      <DependentUpon>201903061104296_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905092011259_Step1.resx">
+      <DependentUpon>201905092011259_Step1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905092048520_Step2.resx">
+      <DependentUpon>201905092048520_Step2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905092103407_Step3.resx">
+      <DependentUpon>201905092103407_Step3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905092147008_Step4.resx">
+      <DependentUpon>201905092147008_Step4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

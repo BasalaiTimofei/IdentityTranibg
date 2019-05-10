@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
-using IdentityTraning.Models;
 using IdentityTraning.Models.DbModel;
 using IdentityTraning.Services;
 using Microsoft.AspNet.Identity.Owin;

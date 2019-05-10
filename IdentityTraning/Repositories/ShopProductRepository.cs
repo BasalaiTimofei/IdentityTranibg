@@ -32,16 +32,18 @@ namespace IdentityTraning.Repositories
 
         public void Create(ShopProduct item)
         {
-            if (item?.Price == null || item.Product == null || item.Shop == null) throw new NullReferenceException();
             if (item.Count == 0) item.Count = 1;
-            item.Id = new Guid().ToString();
+
+            item.Id = Guid.NewGuid().ToString();
 
             _applicationContext.ShopProducts.Add(item);
+            _applicationContext.SaveChanges();
         }
 
         public void Update(ShopProduct item)
         {
             _applicationContext.Entry(item).State = EntityState.Modified;
+            _applicationContext.SaveChanges();
         }
 
         public async Task Delete(string id)
@@ -50,6 +52,7 @@ namespace IdentityTraning.Repositories
             var shopProduct = await _applicationContext.ShopProducts.FindAsync(id);
             if (shopProduct == null) throw new NullReferenceException();
             _applicationContext.ShopProducts.Remove(shopProduct);
+            _applicationContext.SaveChanges();
         }
     }
 }

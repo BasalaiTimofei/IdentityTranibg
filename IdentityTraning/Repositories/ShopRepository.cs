@@ -34,12 +34,14 @@ namespace IdentityTraning.Repositories
 
         public void Create(Shop shop)
         {
+            shop.Id = Guid.NewGuid().ToString();
+
             shop.Workers = new List<Worker>();
             shop.Checks = new List<Check>();
-            shop.Products = new List<Product>();
-            shop.Id = new Guid().ToString();
+            shop.ShopProducts = new List<ShopProduct>();
 
             _applicationContext.Shops.Add(shop);
+            _applicationContext.SaveChanges();
         }
 
         public void Update(Shop shop)

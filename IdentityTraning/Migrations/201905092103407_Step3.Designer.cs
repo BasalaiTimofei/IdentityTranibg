@@ -7,13 +7,13 @@ namespace IdentityTraning.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class Step3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Step3));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903061104296_InitialCreate"; }
+            get { return "201905092103407_Step3"; }
         }
         
         string IMigrationMetadata.Source

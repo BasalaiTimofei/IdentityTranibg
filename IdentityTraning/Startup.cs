@@ -32,10 +32,10 @@ namespace IdentityTraning
 
         private static void ConfigureOAuthTokenGeneration(IAppBuilder appBuilder)
         {
-            appBuilder.CreatePerOwinContext(ApplicationContext.Create);
+            appBuilder.CreatePerOwinContext(IdentityContext.Create);
             appBuilder.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             appBuilder.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
-
+            
             OAuthAuthorizationServerOptions oAuthAuthorizationServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,

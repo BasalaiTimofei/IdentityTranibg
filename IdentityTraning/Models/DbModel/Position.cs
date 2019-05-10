@@ -10,6 +10,5 @@ namespace IdentityTraning.Models.DbModel
         public string Duties { get; set; }
 
         public virtual List<Worker> Workers { get; set; }
-        public virtual List<Shop> Shops { get; set; }
     }
 }

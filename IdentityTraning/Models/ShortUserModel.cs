@@ -7,14 +7,14 @@ namespace IdentityTraning.Models
         public string Id { get; set; }
         public string FullName { get; set; }
 
-        public static ShortUserModel Create(ApplicationUser applicationUser)
+        public static ShortUserModel Create(User user)
         {
             return new ShortUserModel
             {
-                Id = applicationUser.Id,
-                FullName = $"{applicationUser.LastName} " +
-                           $"{applicationUser.FirstName} " +
-                           $"{applicationUser.SecondName}"
+                Id = user.Id,
+                FullName = $"{user.LastName} " +
+                           $"{user.FirstName} " +
+                           $"{user.SecondName}"
             };
         }
     }

@@ -44,31 +44,39 @@ namespace IdentityTraning.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            ApplicationUser applicationUser = new ApplicationUser
+            ApplicationUser identityUser = new ApplicationUser
             {
                 UserName = userRegisrtationModel.Email,
                 Email = userRegisrtationModel.Email,
+                PhoneNumber = userRegisrtationModel.PhoneNumber
+            };
+
+            IdentityResult identityResult =
+                await ApplicationUserManager.CreateAsync(identityUser, userRegisrtationModel.Password);
+
+            if (!identityResult.Succeeded) return GetErrorResult(identityResult);
+
+            User user = new User
+            {
+                Id = identityUser.Id,
+                UserName = userRegisrtationModel.Email,
+
                 FirstName = userRegisrtationModel.FirstName,
                 LastName = userRegisrtationModel.LastName,
                 SecondName = userRegisrtationModel.SecondName,
                 Location = "Belarus Minsk", //TODO добавить поиск по ip
                 Gendar = userRegisrtationModel.Gendar ? Gendar.Man : Gendar.Woman,
-                JoinDate = DateTime.Now,
-                PhoneNumber = userRegisrtationModel.PhoneNumber
             };
 
-            IdentityResult identityResult =
-                await ApplicationUserManager.CreateAsync(applicationUser, userRegisrtationModel.Password);
+            UnitOfWork.UserRepository.Create(user);
 
-            if (!identityResult.Succeeded) return GetErrorResult(identityResult);
+            //string code = await ApplicationUserManager.GenerateEmailConfirmationTokenAsync(applicationUser.Id);
+            //Uri callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new {userId = applicationUser.Id, code = code}));
+            //await ApplicationUserManager.SendEmailAsync(applicationUser.Id, "Confirm your account",
+            //    $"Please confirm your account by clicking <a href=\"{callbackUrl}\">here</a>");
 
-            string code = await ApplicationUserManager.GenerateEmailConfirmationTokenAsync(applicationUser.Id);
-            Uri callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new {userId = applicationUser.Id, code = code}));
-            await ApplicationUserManager.SendEmailAsync(applicationUser.Id, "Confirm your account",
-                $"Please confirm your account by clicking <a href=\"{callbackUrl}\">here</a>");
-
-        Uri locationHeader = new Uri(Url.Link("GetUserById", new {id = applicationUser.Id}));
-            return Created(locationHeader, ModelFactory.Create(applicationUser));
+            Uri locationHeader = new Uri(Url.Link("GetUserById", new {id = identityUser.Id}));
+            return Created(locationHeader, ModelFactory.Create(identityUser));
         }
 
         [AllowAnonymous]

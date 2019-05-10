@@ -16,10 +16,10 @@ namespace IdentityTraning.Services
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options,
             IOwinContext context)
         {
-            var applicarionRoleManager =
-                new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<ApplicationContext>()));
+            var applicationRoleManager =
+                new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<IdentityContext>()));
 
-            return applicarionRoleManager;
+            return applicationRoleManager;
         }
     }
 }

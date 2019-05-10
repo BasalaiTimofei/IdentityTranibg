@@ -6,7 +6,7 @@ namespace IdentityTraning.Models.DbModel
     {
         public string Id { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
-        public virtual List<Check> Checks { get; set; }
+        public virtual User User { get; set; }
+        //public virtual List<Check> Checks { get; set; }
     }
 }

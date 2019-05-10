@@ -19,7 +19,7 @@ namespace IdentityTraning.Services
         public static ApplicationUserManager Create(
             IdentityFactoryOptions<ApplicationUserManager> identityFactoryOptions, IOwinContext owinContext)
         {
-            ApplicationContext applicationContext = owinContext.Get<ApplicationContext>();
+            IdentityContext applicationContext = owinContext.Get<IdentityContext>();
             ApplicationUserManager applicationUserManager =
                 new ApplicationUserManager(new UserStore<ApplicationUser>(applicationContext))
                 {

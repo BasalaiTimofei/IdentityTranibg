@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using IdentityTraning.Context;
 using IdentityTraning.Models;
+using IdentityTraning.Repositories;
 using IdentityTraning.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -13,6 +15,10 @@ namespace IdentityTraning.Controllers
         private ModelFactory _modelFactory;
         private ApplicationUserManager _applicationUserManager;
         private ApplicationRoleManager _applicationRoleManager;
+        private UnitOfWork _unitOfWork;
+
+        protected UnitOfWork UnitOfWork =>
+            _unitOfWork ?? (_unitOfWork = new UnitOfWork(ApplicationContext.Create()));
 
         protected ApplicationUserManager ApplicationUserManager =>
             _applicationUserManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -21,7 +27,7 @@ namespace IdentityTraning.Controllers
             _applicationRoleManager ?? Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
 
         protected ModelFactory ModelFactory =>
-            _modelFactory ?? (_modelFactory = new ModelFactory(Request, ApplicationUserManager));
+            _modelFactory ?? (_modelFactory = new ModelFactory(Request, ApplicationUserManager, _unitOfWork));
 
         protected IHttpActionResult GetErrorResult(IdentityResult identityResult)
         {

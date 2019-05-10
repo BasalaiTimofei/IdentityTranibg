@@ -32,15 +32,18 @@ namespace IdentityTraning.Repositories
 
         public void Create(Customer customer)
         {
-            customer.Checks = new List<Check>();
-            customer.Id = new Guid().ToString();
+            customer.Id = Guid.NewGuid().ToString();
+
+            //customer.Checks = new List<Check>();
 
             _applicationContext.Customers.Add(customer);
+            _applicationContext.SaveChanges();
         }
 
         public void Update(Customer customer)
         {
             _applicationContext.Entry(customer).State = EntityState.Modified;
+            _applicationContext.SaveChanges();
         }
 
         public async Task Delete(string id)
@@ -49,6 +52,7 @@ namespace IdentityTraning.Repositories
             var customer = await _applicationContext.Customers.FindAsync(id);
             if (customer == null) throw new NullReferenceException();
             _applicationContext.Customers.Remove(customer);
+            _applicationContext.SaveChanges();
         }
     }
 }

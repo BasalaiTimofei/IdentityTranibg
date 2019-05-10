@@ -33,13 +33,17 @@ namespace IdentityTraning.Repositories
         public void Create(Worker item)
         {
             if (item?.Position == null || item.User == null) throw new NullReferenceException();
-            item.Id = new Guid().ToString();
+
+            item.Id = Guid.NewGuid().ToString();
+
             _applicationContext.Workers.Add(item);
+            _applicationContext.SaveChanges();
         }
 
         public void Update(Worker item)
         {
             _applicationContext.Entry(item).State = EntityState.Modified;
+            _applicationContext.SaveChanges();
         }
 
         public async Task Delete(string id)
@@ -48,6 +52,7 @@ namespace IdentityTraning.Repositories
             var worker = await _applicationContext.Workers.FindAsync(id);
             if (worker == null) throw new NullReferenceException();
             _applicationContext.Workers.Remove(worker);
+            _applicationContext.SaveChanges();
         }
     }
 }

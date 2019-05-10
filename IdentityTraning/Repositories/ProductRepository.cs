@@ -34,16 +34,18 @@ namespace IdentityTraning.Repositories
         {
             if (item == null) throw new NullReferenceException();
 
-            item.Id = new Guid().ToString();
+            item.Id = Guid.NewGuid().ToString();
+
             item.Checks = new List<Check>();
-            item.Shops = new List<Shop>(); //TODO Добавить стартовый магаз(склад)
 
             _applicationContext.Products.Add(item);
+            _applicationContext.SaveChanges();
         }
 
         public void Update(Product item)
         {
             _applicationContext.Entry(item).State = EntityState.Modified;
+            _applicationContext.SaveChanges();
         }
 
         public async Task Delete(string id)
@@ -52,6 +54,7 @@ namespace IdentityTraning.Repositories
             var product = await _applicationContext.Products.FindAsync(id);
             if (product == null) throw new NullReferenceException();
             _applicationContext.Products.Remove(product);
+            _applicationContext.SaveChanges();
         }
     }
 }

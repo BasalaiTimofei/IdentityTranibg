@@ -32,18 +32,21 @@ namespace IdentityTraning.Repositories
 
         public void Create(Check item)
         {
-            if (item?.Customer == null || item.Products == null || item.Shop == null)
+            if (item == null || item.Products == null || item.Shop == null)
                 throw new NullReferenceException();
 
-            item.Id = new Guid().ToString();
+            item.Id = Guid.NewGuid().ToString();
+
             item.PurchaseDate = DateTime.Now;
 
             _applicationContext.Checks.Add(item);
+            _applicationContext.SaveChanges();
         }
 
         public void Update(Check item)
         {
             _applicationContext.Entry(item).State = EntityState.Modified;
+            _applicationContext.SaveChanges();
         }
 
         public async Task Delete(string id)
@@ -52,6 +55,7 @@ namespace IdentityTraning.Repositories
             var check = await _applicationContext.Checks.FindAsync(id);
             if (check == null) throw new NullReferenceException();
             _applicationContext.Checks.Remove(check);
+            _applicationContext.SaveChanges();
         }
     }
 }

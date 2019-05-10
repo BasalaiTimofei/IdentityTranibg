@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace IdentityTraning.Models.DbModel
 {
@@ -11,8 +12,7 @@ namespace IdentityTraning.Models.DbModel
         public string ImgLink { get; set; }
 
         public virtual List<Worker> Workers { get; set; }
-        public virtual List<Product> Products { get; set; }
+        public virtual List<ShopProduct> ShopProducts { get; set; }
         public virtual List<Check> Checks { get; set; }
-        public virtual List<Position> Positions { get; set; }
     }
 }

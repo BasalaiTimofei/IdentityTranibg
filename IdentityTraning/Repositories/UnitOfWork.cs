@@ -9,11 +9,6 @@ namespace IdentityTraning.Repositories
         private bool _disposed;
         private readonly ApplicationContext _applicationContext;
 
-        public UnitOfWork(ApplicationContext applicationContext)
-        {
-            _applicationContext = applicationContext;
-        }
-
         private CheckRepository _checkRepository;
         private CustomerRepository _customerRepository;
         private PositionRepository _positionRepository;
@@ -21,6 +16,15 @@ namespace IdentityTraning.Repositories
         private ShopRepository _shopRepository;
         private WorkerRepository _workerRepository;
         private ShopProductRepository _shopProductRepository;
+        private UserRepository _userRepository;
+
+        public UnitOfWork(ApplicationContext applicationContext)
+        {
+            _applicationContext = applicationContext;
+        }
+
+        public UserRepository UserRepository =>
+            _userRepository ?? (_userRepository = new UserRepository(_applicationContext));
 
         public CheckRepository CheckRepository =>
             _checkRepository ?? (_checkRepository = new CheckRepository(_applicationContext));
